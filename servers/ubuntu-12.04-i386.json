@@ -107,7 +107,7 @@
   ],
   "post-processors": [
     {
-      "output": "builds/{{.Provider}}/opscode_ubuntu-12.04-i386_chef-{{user `chef_version`}}.box",
+      "output": "builds/{{.Provider}}/nmd_lamp_ubuntu-12.04-i386.box",
       "type": "vagrant"
     }
   ],
@@ -129,6 +129,25 @@
         "scripts/common/minimize.sh"
       ],
       "type": "shell"
+    },
+    {
+      "type": "chef-solo",
+      "cookbook_paths": [".berkshelf/cookbooks"],
+      "run_list": [
+        "recipe[apache2]"
+      ],
+      "json": {
+        "apache": {
+          "keepalivetimeout": 4,
+          "keepaliverequests": 1000,
+          "prefork": {
+            "startservers": 5,
+            "minspareservers": 5,
+            "maxspareservers": 10,
+            "maxrequestsperchild": 10000
+          }
+        }
+      }
     }
   ],
   "variables": {

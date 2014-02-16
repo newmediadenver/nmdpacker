@@ -44,7 +44,7 @@ class Nmd < Thor
     Dir.chdir '.' do
       system "rm -f Berkshelf.lock"
       invoke("berkshelf:install", [], path: "./.berkshelf/cookbooks", berksfile: "./Berksfile")
-      FileUtils.rm_rf(Dir.glob('./packer-centos-5.10-x86_64-virtualbox'))
+      FileUtils.rm_rf(Dir.glob('./packer-*'))
 
       if options[:bits]
         processor = options[:bits] == "64" ? "{amd64,x86_64}" : "i386"
@@ -52,7 +52,7 @@ class Nmd < Thor
         processor = "*"
       end
 
-      templates = Dir.glob("#{options[:os]}-#{options[:ver]}-#{processor}.json")
+      templates = Dir.glob("servers/#{options[:os]}-#{options[:ver]}-#{processor}.json")
 
       if options[:only]
         templates.each do |template|

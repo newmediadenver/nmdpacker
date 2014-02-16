@@ -42,7 +42,7 @@ class Nmd < Thor
 
   def build
     Dir.chdir '.' do
-      system "rm -f Berkshelf.lock"
+      system "rm -f ./Berkshelf.lock"
       invoke("berkshelf:install", [], path: "./.berkshelf/cookbooks", berksfile: "./Berksfile")
       FileUtils.rm_rf(Dir.glob('./packer-*'))
 

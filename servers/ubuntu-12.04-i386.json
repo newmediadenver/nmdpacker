@@ -26,6 +26,7 @@
         "<enter><wait>"
       ],
       "boot_wait": "10s",
+      "headless": true,
       "disk_size": 40960,
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "guest_os_type": "Ubuntu",
@@ -134,9 +135,16 @@
       "type": "chef-solo",
       "cookbook_paths": [".berkshelf/cookbooks"],
       "run_list": [
-        "recipe[apache2]"
+        "recipe[apache2]",
+        "recipe[mysql::server]",
+        "recipe[php]"
       ],
       "json": {
+        "php": {
+          "packages": [
+            "php5-cgi", "php5", "php5-dev", "php5-cli", "php-pear", "php5-mysql", "php5-gd", "php5-curl"
+          ]
+        },
         "apache": {
           "keepalivetimeout": 4,
           "keepaliverequests": 1000,
@@ -146,6 +154,11 @@
             "maxspareservers": 10,
             "maxrequestsperchild": 10000
           }
+        },
+        "mysql": {
+          "server_debian_password": "debian",
+          "server_root_password": "root",
+          "server_repl_password": "replication"
         }
       }
     }

@@ -85,7 +85,7 @@ In a typical setup, the base box is distributed from a url. In this example, we 
    Last login: Mon Jan 01 00:00:00 2014 from 10.0.2.2
    [vagrant@localhost ~]$
    ```
-   You can provision the sites [defined for newmediadenver chef](https://github.com/newmediadenver/chef/blob/master/infrastructure/jcore.json).
+   You can provision the sites you've defined for drupal.
    ```bash
    $ cd ~/nmd-chef
    $ vagrant provision

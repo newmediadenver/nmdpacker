@@ -38,7 +38,7 @@ class Nmd < Thor
   option :ver, :banner => "<version>", :default => "*", :desc => "ex: 5.10"
   option :bits, :banner => "<bits>", :desc => "ex: x86_64"
   option :only, :banner => "<only>", :default => "virtualbox-iso", :desc => "Remove this default when/if vmware works."
-  option :box, :type => :boolean, :desc => "Setting the box flag will remove and replace related vagrant boxes."
+  option :box, :type => :boolean, :desc => "Adds the new box to vagrant."
 
   def build
     Dir.chdir '.' do
@@ -67,7 +67,6 @@ class Nmd < Thor
       if options[:box]
         Dir.glob('./builds/virtualbox/nmd*').each do |template|
           box_name = template.match(/(nmd.*).box/).captures[0]
-          puts "box = #{box_name}"
           system "vagrant box remove #{box_name}"
           system "vagrant box add #{box_name} #{template}"
         end

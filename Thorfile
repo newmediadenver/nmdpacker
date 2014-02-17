@@ -11,15 +11,31 @@ require 'aws-sdk'
 
 class Nmd < Thor
 
+  desc "beep", "beep"
+  def beep
+    Dir.chdir '.' do
+        # If the latest commit doesn't match the commit at the the tag then call it latest.
+        tag = `git describe --abbrev=0 --tags`.gsub("\n","")
+        tag_hash = `git show-ref --tags -d | grep #{tag}\^\{\} | awk '{print $1}'`.gsub("\n","")
+        latest_hash = `git rev-parse HEAD`.gsub("\n","")
+        if latest_hash != tag_hash 
+          say("Stuff", :green)
+        end
+
+        say("#{latest_hash} #{tag} at #{tag_hash}", :white)
+    end
+  end
+
   desc 'validate', "Validate all the packer templates eg: ubuntu-12.04-i386.json"
   def validate
     templates = Dir.glob("servers/*.json")
     templates.each do |template|
-      puts "#{template}"
       unless system "packer validate #{template}"
-        fail "Validation failed!"
+        say("#{template} is invalid.", :red)
+        fail "#{template} is invalid."
+      else
+        say("#{template} is valid.", :green)
       end
-      puts "\n"
     end
   end
 
@@ -53,16 +69,33 @@ class Nmd < Thor
     Dir.chdir '.' do
       boxes = Dir.glob('./builds/virtualbox/*.box')
       boxes = Dir.glob('./builds/vmware/*.box') if options[:vmware]
-      puts "Nothing to upload." if boxes.empty?
+      say("Nothing to upload.", :green) if boxes.empty?
+
       boxes.each do |box|
-        puts "Uploading #{box} to the #{bucket_name} bucket (this could take some time) ..."
+        say("Uploading #{box} to the #{bucket_name} bucket (this could take some time) ...", :white)
         # @TODO: What if there are no tags
         tag = `git describe --abbrev=0 --tags`.gsub("\n","")
+        tag_hash = `git show-ref --tags -d | grep #{tag}\^\{\} | awk '{print $1}'`.gsub("\n","")
+        latest_hash = `git rev-parse HEAD`.gsub("\n","")
+
+        # If the latest hash doesn't match the tag hash then call it latest.
+        if latest_hash != tag_hash 
+          tag = "latest"
+          say("Setting tag to latest.", :green)
+        end
+
+        # If the latest hash matches the tag hash then output a pretty message.
+        if latest_hash == tag_hash 
+          say("Setting tag to #{tag}.", :green)
+        end
+
+        # Add the tag to the target name.
         target_name = box.split("/").last
         target_name = target_name.gsub(/(.*).box/, "\\1-#{tag}.box")
+
         object = bucket.objects.create(target_name, Pathname.new(box))
         object.acl = :public_read
-        puts "#{object.public_url} (complete)"
+        say(object.public_url, :green)
       end
     end
 
@@ -75,18 +108,18 @@ class Nmd < Thor
     if bucket.exists?
       if object_name.nil?
         bucket.delete!
-        puts "Removed the #{bucket_name} bucket and it's contents."
+        say("Removed the #{bucket_name} bucket and it's contents.", :green)
       else
         obj = bucket.objects[object_name]
         if obj.exists?
           obj.delete
-          puts "Removed #{object_name} from #{bucket_name}."
+          say("Removed #{object_name} from #{bucket_name}.", :green)
         else
-          puts "Error: #{object_name} does not exist in #{bucket_name}."
+          say("#{object_name} does not exist in #{bucket_name}.", :red)
         end
       end
     else
-      puts "Error: Could not find a bucket named #{bucket_name}."
+      say("Could not find a bucket named #{bucket_name}.", :red)
     end
   end
 

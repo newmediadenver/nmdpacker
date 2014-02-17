@@ -5,10 +5,13 @@ require 'fileutils'
 require 'timeout'
 require 'berkshelf/thor'
 require 'berkshelf/cli'
+require 'rubygems'
+require 'bundler/setup'
+require 'aws-sdk'
 
 class Nmd < Thor
 
-  desc 'validate', "Validate all the packer templates eg: centos-5.10-x86_64.json"
+  desc 'validate', "Validate all the packer templates eg: ubuntu-12.04-i386.json"
   def validate
     templates = Dir.glob("servers/*.json")
     templates.each do |template|
@@ -33,12 +36,63 @@ class Nmd < Thor
     end
   end
 
+  desc 'upload [BUCKET_NAME]', "s3: Upload built boxes to the designated bucket."
+  option :vmware, :type => :boolean, :desc => "Upload the vmware images instead of the virtualbox ones."
+
+  def upload
+    s3 = gets3
+    bucket_name = "nmd-virtualbox"
+    bucket_name = "nmd-vmware" if options[:vmware]
+    begin
+      bucket = s3.buckets.create(bucket_name)
+    rescue Exception=>e
+      bucket = s3.buckets[bucket_name]
+    end
+    bucket.acl = :public_read
+
+    Dir.chdir '.' do
+      boxes = Dir.glob('./builds/virtualbox/*.box')
+      boxes = Dir.glob('./builds/vmware/*.box') if options[:vmware]
+      puts "Nothing to upload." if boxes.empty?
+      boxes.each do |box|
+        puts "Uploading #{box} to the #{bucket_name} bucket (this could take some time) ..."
+        object = bucket.objects.create(box.split("/").last, Pathname.new(box))
+        object.acl = :public_read
+        puts "#{object.public_url} (complete)"
+      end
+    end
+
+  end
+
+  desc "delete [BUCKET_NAME, OBJECT_NAME]", "s3: Delete an object or a bucket (and it's objects)."
+  def delete(bucket_name, object_name=nil)
+    s3 = gets3
+    bucket = s3.buckets[bucket_name]
+    if bucket.exists?
+      if object_name.nil?
+        bucket.delete!
+        puts "Removed the #{bucket_name} bucket and it's contents."
+      else
+        obj = bucket.objects[object_name]
+        if obj.exists?
+          obj.delete
+          puts "Removed #{object_name} from #{bucket_name}."
+        else
+          puts "Error: #{object_name} does not exist in #{bucket_name}."
+        end
+      end
+    else
+      puts "Error: Could not find a bucket named #{bucket_name}."
+    end
+  end
+
   desc 'build', "Build a base vagrant box from chef cookbooks."
   option :os, :banner => "<os>", :default => "*", :desc => "ex: centos"
   option :ver, :banner => "<version>", :default => "*", :desc => "ex: 5.10"
   option :bits, :banner => "<bits>", :desc => "ex: x86_64"
   option :only, :banner => "<only>", :default => "virtualbox-iso", :desc => "Remove this default when/if vmware works."
-  option :box, :type => :boolean, :desc => "Adds the new box to vagrant."
+  option :box, :type => :boolean, :desc => "Adds the new box to your local vagrant."
+  option :upload, :type => :boolean, :desc => "Uploads the box to s3."
 
   def build
     Dir.chdir '.' do
@@ -72,6 +126,19 @@ class Nmd < Thor
         end
       end
 
+      if options[:upload]
+        upload
+      end
+
     end
   end
+  no_commands do
+    def gets3
+      %w{ AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_REGION }.each do |key|
+        raise "Set an environment variable for #{key}" if ENV[key].nil?
+      end
+      AWS::S3.new
+    end
+  end
+
 end

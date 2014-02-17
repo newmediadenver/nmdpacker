@@ -136,12 +136,13 @@
       "cookbook_paths": [".berkshelf/cookbooks"],
       "run_list": [
         "recipe[apache2]",
+        "recipe[git]",
         "recipe[mysql::server]",
         "recipe[drupal::php]",
+        "recipe[drupal::drush]",
         "recipe[apache2::mod_php5]",
         "recipe[apache2::mod_rewrite]",
-        "recipe[mysql::server]",
-        "recipe[git]"
+        "recipe[mysql::server]"
       ],
       "json": {
         "php": {
@@ -163,6 +164,12 @@
           "server_debian_password": "debian",
           "server_root_password": "root",
           "server_repl_password": "replication"
+        },
+        "drupal": {
+          "drush": {
+            "repository": "https://github.com/drush-ops/drush.git",
+            "revision": "5.9.0"
+          }
         }
       }
     }

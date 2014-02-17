@@ -1,4 +1,4 @@
-#Newmedia Packer
+#Newmedia Packer2
 
 [Packer](http://www.packer.io/intro) is used to build the virtual machines used at newmediadenver. You can interact with this repository when you need to modify the underlying stack (eg: httpd, php, mysql) for a base box.
 

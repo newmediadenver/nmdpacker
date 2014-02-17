@@ -72,26 +72,20 @@ class Nmd < Thor
       say("Nothing to upload.", :green) if boxes.empty?
 
       boxes.each do |box|
-        say("Uploading #{box} to the #{bucket_name} bucket (this could take some time) ...", :white)
         # @TODO: What if there are no tags
         tag = `git describe --abbrev=0 --tags`.gsub("\n","")
         tag_hash = `git show-ref --tags -d | grep #{tag}\^\{\} | awk '{print $1}'`.gsub("\n","")
         latest_hash = `git rev-parse HEAD`.gsub("\n","")
 
         # If the latest hash doesn't match the tag hash then call it latest.
-        if latest_hash != tag_hash 
-          tag = "latest"
-          say("Setting tag to latest.", :green)
-        end
-
-        # If the latest hash matches the tag hash then output a pretty message.
-        if latest_hash == tag_hash 
-          say("Setting tag to #{tag}.", :green)
-        end
+        tag = "latest" if latest_hash != tag_hash
 
         # Add the tag to the target name.
         target_name = box.split("/").last
         target_name = target_name.gsub(/(.*).box/, "\\1-#{tag}.box")
+
+        say("Setting tag to #{tag}.", :white)
+        say("Uploading #{box} to the #{bucket_name} #{target_name} (this could take some time) ...", :white)
 
         object = bucket.objects.create(target_name, Pathname.new(box))
         object.acl = :public_read
@@ -108,6 +102,7 @@ class Nmd < Thor
     if bucket.exists?
       if object_name.nil?
         bucket.delete!
+        verify_delete = ask("Are you sure you want to delete #{bucket_name} and it's contents (Y/N): ")
         say("Removed the #{bucket_name} bucket and it's contents.", :green)
       else
         obj = bucket.objects[object_name]

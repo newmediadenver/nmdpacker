@@ -56,7 +56,11 @@ class Nmd < Thor
       puts "Nothing to upload." if boxes.empty?
       boxes.each do |box|
         puts "Uploading #{box} to the #{bucket_name} bucket (this could take some time) ..."
-        object = bucket.objects.create(box.split("/").last, Pathname.new(box))
+        # @TODO: What if there are no tags
+        tag = `git describe --abbrev=0 --tags`.gsub("\n","")
+        target_name = box.split("/").last
+        target_name = target_name.gsub(/(.*).box/, "\\1-#{tag}.box")
+        object = bucket.objects.create(target_name, Pathname.new(box))
         object.acl = :public_read
         puts "#{object.public_url} (complete)"
       end

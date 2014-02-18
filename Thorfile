@@ -52,7 +52,7 @@ class Nmd < Thor
     end
   end
 
-  desc 'upload [BUCKET_NAME]', "s3: Upload built boxes to the designated bucket."
+  desc 'upload', "s3: Upload built boxes to the designated bucket."
   option :vmware, :type => :boolean, :desc => "Upload the vmware images instead of the virtualbox ones."
 
   def upload
@@ -122,7 +122,7 @@ class Nmd < Thor
   option :os, :banner => "<os>", :default => "*", :desc => "ex: centos"
   option :ver, :banner => "<version>", :default => "*", :desc => "ex: 5.10"
   option :bits, :banner => "<bits>", :desc => "ex: x86_64"
-  option :only, :banner => "<only>", :default => "virtualbox-iso", :desc => "Remove this default when/if vmware works."
+  option :only, :banner => "<only>", :desc => "Typically virtualbox-iso or vmware-iso"
   option :box, :type => :boolean, :desc => "Adds the new box to your local vagrant."
   option :upload, :type => :boolean, :desc => "Uploads the box to s3."
 

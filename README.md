@@ -9,11 +9,7 @@ Packer is basically controlled by the ```{ "provisioner": {} }``` section of a s
 
 1. Download and install [Vagrant](http://www.vagrantup.com/downloads.html).
 
-1. Install required ruby gems [Berkshelf](http://berkshelf.com/) and [Thor](https://github.com/erikhuda/thor/wiki).
-
-    ```bash
-    $ gem install berkshelf thor
-    ```
+1. Install [Bundler](http://bundler.io/) 
 
 1. Download and install [Packer](http://www.packer.io/intro/getting-started/setup.html)
 
@@ -21,6 +17,13 @@ Packer is basically controlled by the ```{ "provisioner": {} }``` section of a s
 
    ```bash
    $ git clone git@github.com:newmediadenver/nmd-packer.git ~/nmd-packer
+   ```
+   
+1. Change directory into the repository and perform the install.
+
+   ```bash
+   $ cd ~/nmd-packer
+   $ bundle install
    ```
 
 ##Creating Boxes

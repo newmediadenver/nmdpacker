@@ -2,3 +2,5 @@ packer_cache
 Berksfile.lock
 .DS_Store
 Gemfile.lock
+.berkshelf
+.vagrant

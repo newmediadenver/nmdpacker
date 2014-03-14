@@ -26,7 +26,7 @@ class Nmd < Thor
     end
   end
 
-  desc 'validate', "Validate all the packer templates eg: ubuntu-12.04-i386.json"
+  desc 'validate', "Validate all the packer templates in servers directory."
   def validate
     templates = Dir.glob("servers/*.json")
     templates.each do |template|
@@ -122,6 +122,7 @@ class Nmd < Thor
   option :os, :banner => "<os>", :default => "*", :desc => "ex: centos"
   option :ver, :banner => "<version>", :default => "*", :desc => "ex: 5.10"
   option :bits, :banner => "<bits>", :desc => "ex: x86_64"
+  option :variant, :banner => "<variant>", :default => "base", :desc => "example: base, lamp, etc."
   option :only, :banner => "<only>", :desc => "Typically virtualbox-iso or vmware-iso"
   option :box, :type => :boolean, :desc => "Adds the new box to your local vagrant."
   option :upload, :type => :boolean, :desc => "Uploads the box to s3."
@@ -138,7 +139,8 @@ class Nmd < Thor
         processor = "*"
       end
 
-      templates = Dir.glob("servers/#{options[:os]}-#{options[:ver]}-#{processor}.json")
+      templates = Dir.glob("servers/#{options[:os]}-#{options[:ver]}-#{processor}-#{options[:variant]}.json")
+
 
       if options[:only]
         templates.each do |template|

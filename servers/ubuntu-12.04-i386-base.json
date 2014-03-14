@@ -109,7 +109,7 @@
   ],
   "post-processors": [
     {
-      "output": "builds/{{.Provider}}/nmd_lamp_ubuntu-12.04-i386.box",
+      "output": "builds/{{.Provider}}/nmd-ubunutu-12.04-i386-base.box",
       "type": "vagrant"
     }
   ],
@@ -131,48 +131,6 @@
         "scripts/common/minimize.sh"
       ],
       "type": "shell"
-    },
-    {
-      "type": "chef-solo",
-      "cookbook_paths": [".berkshelf/cookbooks"],
-      "run_list": [
-        "recipe[apache2]",
-        "recipe[git]",
-        "recipe[mysql::server]",
-        "recipe[drupal::php]",
-        "recipe[drupal::drush]",
-        "recipe[apache2::mod_php5]",
-        "recipe[apache2::mod_rewrite]",
-        "recipe[mysql::server]"
-      ],
-      "json": {
-        "php": {
-          "packages": [
-            "php5-cgi", "php5", "php5-dev", "php5-cli", "php-pear", "php5-mysql", "php5-gd", "php5-curl"
-          ]
-        },
-        "apache": {
-          "keepalivetimeout": 4,
-          "keepaliverequests": 1000,
-          "prefork": {
-            "startservers": 5,
-            "minspareservers": 5,
-            "maxspareservers": 10,
-            "maxrequestsperchild": 10000
-          }
-        },
-        "mysql": {
-          "server_debian_password": "debian",
-          "server_root_password": "root",
-          "server_repl_password": "replication"
-        },
-        "drupal": {
-          "drush": {
-            "repository": "https://github.com/drush-ops/drush.git",
-            "revision": "5.9.0"
-          }
-        }
-      }
     }
   ],
   "variables": {

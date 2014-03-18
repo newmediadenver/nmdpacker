@@ -6,3 +6,4 @@ wget --no-check-certificate \
     -O /home/vagrant/.ssh/authorized_keys
 chown -R vagrant /home/vagrant/.ssh
 chmod -R go-rwsx /home/vagrant/.ssh
+echo "sudo su" >> /home/vagrant/.bash_profile

@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/newmediadenver/nmdpacker.svg?branch=master)](https://travis-ci.org/newmediadenver/nmdpacker)
 
-#Newmedia Denver Base Boxes
+#Newmedia Denver Base Boxes -
 
 [Packer](http://www.packer.io/intro) is used to build the virtual machines used at newmediadenver. You can interact with this repository when you need to modify the underlying stack (eg: httpd, php, mysql) for a base box.
 

@@ -35,6 +35,9 @@ GEM
     buff-shell_out (0.1.1)
       buff-ruby_engine (~> 0.1.0)
     builder (3.2.2)
+    bundle_cache (0.2.1)
+      aws-sdk (>= 1.0.0)
+      bundler
     celluloid (0.14.1)
       timers (>= 1.0.0)
     celluloid-io (0.14.1)
@@ -138,11 +141,12 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk (~> 1.34.0)
   berkshelf
+  bundle_cache (~> 0.2.1)
   json (~> 1.8.1)
   macaddr (~> 1.6.2)
   mini_portile (~> 0.5.2)
   nokogiri (~> 1.6.1)
   systemu (~> 2.6.2)
-  thor
+  thor (~> 0.18.0)
   uuid (~> 2.3.7)
   uuidtools (~> 2.1.4)

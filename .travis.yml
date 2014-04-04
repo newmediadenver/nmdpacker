@@ -1,12 +1,22 @@
+bundler_args: --without development --path=~/.bundle
 rvm:
-  - 2.0.0
+- 2.0.0
+before_install:
+  - "echo 'gem: --no-ri --no-rdoc' > ~/.gemrc"
+  - gem install bundler fog
+  - "./scripts/travis/bundle_install.sh"
 
-before_install: wget --no-check-certificate https://dl.bintray.com/mitchellh/packer/0.5.1_linux_amd64.zip && unzip -d packer 0.5.1_linux_amd64.zip
 before_script: export PATH=$PATH:$PWD/packer
-
 script: bundle exec thor nmd:validate
-
 notifications:
   hipchat:
     rooms:
-      secure: "k+wVQce7mo9qEhG8ko5yU8SH5DTwhoV45zbxVcs+cakZtsBDl9bpb5OUaWFKhygroC6TuPF0qdAn/G3Hs76AFfsOiNPNmmSVvFF2rv95TQvnDk6JfgqsKoVwdEtOJYAVsnb3peOcebuonzy3MfSRN0vFLcx7jNBKyOhwHqCP1yk="
+      secure: k+wVQce7mo9qEhG8ko5yU8SH5DTwhoV45zbxVcs+cakZtsBDl9bpb5OUaWFKhygroC6TuPF0qdAn/G3Hs76AFfsOiNPNmmSVvFF2rv95TQvnDk6JfgqsKoVwdEtOJYAVsnb3peOcebuonzy3MfSRN0vFLcx7jNBKyOhwHqCP1yk=
+env:
+  global:
+    - BUNDLE_ARCHIVE="nmdpacker"
+    - AWS_S3_REGION="us-east-1"
+    - AWS_S3_BUCKET="nmd-cache"
+    - secure: BwhUEm0Oj7IqyUpWDdYmvcqFkOKbRiOE3dunPpSVHiK2kocOlZWzqPO0Y1cdUro/hkeA6f1rr+eXu75BEPP4lPzFE+GFnbKY5UCHba8mXYNFTPjTRLq+6oIWMJlfw1lSE/qCGlRJ0NmhBVIkZq81zzyZ/44lSwpqSlorll7S77w=
+after_script:
+- "ruby script/travis/bundle_cache.rb"

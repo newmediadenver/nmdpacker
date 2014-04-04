@@ -19,4 +19,4 @@ env:
     - AWS_S3_BUCKET="nmd-cache"
     - secure: BwhUEm0Oj7IqyUpWDdYmvcqFkOKbRiOE3dunPpSVHiK2kocOlZWzqPO0Y1cdUro/hkeA6f1rr+eXu75BEPP4lPzFE+GFnbKY5UCHba8mXYNFTPjTRLq+6oIWMJlfw1lSE/qCGlRJ0NmhBVIkZq81zzyZ/44lSwpqSlorll7S77w=
 after_script:
-- "ruby script/travis/bundle_cache.rb"
+- "ruby scripts/travis/bundle_cache.rb"

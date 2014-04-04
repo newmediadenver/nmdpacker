@@ -9,4 +9,4 @@ script: bundle exec thor nmd:validate
 notifications:
   hipchat:
     rooms:
-      secure: "PZE3vv48b+vEZiCXW/pSwWMUGZ6WZqikI9UcgfLGCR3YDLOVL/ClcUdGMyl1OtkFPdvbJ1TJ1DJnEygJTyrp1FKLDxFbUkL1cVsLKkw7DPnhA1kCDMAxcSCXVisqK9FphWIoFxjeGzG9KClKiioWzv7a8tbeJDXXS9Bh723afsg="
+      secure: "k+wVQce7mo9qEhG8ko5yU8SH5DTwhoV45zbxVcs+cakZtsBDl9bpb5OUaWFKhygroC6TuPF0qdAn/G3Hs76AFfsOiNPNmmSVvFF2rv95TQvnDk6JfgqsKoVwdEtOJYAVsnb3peOcebuonzy3MfSRN0vFLcx7jNBKyOhwHqCP1yk="

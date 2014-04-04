@@ -1,4 +1,6 @@
-#Newmedia Packer2
+[![Build Status](https://travis-ci.org/newmediadenver/nmdpacker.svg?branch=master)](https://travis-ci.org/newmediadenver/nmdpacker)
+
+#Newmedia Denver Base Boxes
 
 [Packer](http://www.packer.io/intro) is used to build the virtual machines used at newmediadenver. You can interact with this repository when you need to modify the underlying stack (eg: httpd, php, mysql) for a base box.
 
@@ -9,7 +11,7 @@ Packer is basically controlled by the ```{ "provisioner": {} }``` section of a s
 
 1. Download and install [Vagrant](http://www.vagrantup.com/downloads.html).
 
-1. Install [Bundler](http://bundler.io/) 
+1. Install [Bundler](http://bundler.io/)
 
 1. Download and install [Packer](http://www.packer.io/intro/getting-started/setup.html)
 
@@ -18,7 +20,7 @@ Packer is basically controlled by the ```{ "provisioner": {} }``` section of a s
    ```bash
    $ git clone git@github.com:newmediadenver/nmd-packer.git ~/nmd-packer
    ```
-   
+
 1. Change directory into the repository and perform the install.
 
    ```bash

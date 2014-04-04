@@ -5,3 +5,8 @@ before_install: wget --no-check-certificate https://dl.bintray.com/mitchellh/pac
 before_script: export PATH=$PATH:$PWD/packer
 
 script: bundle exec thor nmd:validate
+
+notifications:
+  hipchat:
+    rooms:
+      secure: "PZE3vv48b+vEZiCXW/pSwWMUGZ6WZqikI9UcgfLGCR3YDLOVL/ClcUdGMyl1OtkFPdvbJ1TJ1DJnEygJTyrp1FKLDxFbUkL1cVsLKkw7DPnhA1kCDMAxcSCXVisqK9FphWIoFxjeGzG9KClKiioWzv7a8tbeJDXXS9Bh723afsg="

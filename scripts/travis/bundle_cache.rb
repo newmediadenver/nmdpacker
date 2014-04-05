@@ -30,7 +30,7 @@ else
     puts "  => New checksum: #{bundle_digest}"
   end
 
-  puts "=> Preparing bundle archive"
+  puts "=> Preparing bundle archive cd ~ && tar -cjf #{file_name} .bundle && split -b 5m -a 3 #{file_name} #{file_name}"
   `cd ~ && tar -cjf #{file_name} .bundle && split -b 5m -a 3 #{file_name} #{file_name}.`
 
   parts_pattern = File.expand_path(File.join("~", "#{file_name}.*"))

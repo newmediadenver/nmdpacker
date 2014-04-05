@@ -10,7 +10,7 @@ script: bundle exec thor nmd:validate
 notifications:
   hipchat:
     rooms:
-      secure: k+wVQce7mo9qEhG8ko5yU8SH5DTwhoV45zbxVcs+cakZtsBDl9bpb5OUaWFKhygroC6TuPF0qdAn/G3Hs76AFfsOiNPNmmSVvFF2rv95TQvnDk6JfgqsKoVwdEtOJYAVsnb3peOcebuonzy3MfSRN0vFLcx7jNBKyOhwHqCP1yk=
+      secure: RFtV7R9DA3AAujrRnRiEj/ZGWEqn3SFkEFKZZDQEuEEVDobJlkd8MdxSUkEWI/6BXgaAnM138qoq85JckY0QkTAxv2cAYx79OYQGYQReOqRdPEjSAl2gU27c0Umg9EG8lMHr51hYaP7SNs521kpFPujKRfY7irtlxGTvSrPBlC4=
 env:
   global:
   - BUNDLE_ARCHIVE="nmdpacker"

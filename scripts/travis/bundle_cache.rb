@@ -13,7 +13,9 @@ digest_filename = "#{file_name}.sha2"
 old_digest      = File.expand_path("~/remote_#{digest_filename}")
 
 puts "Checking for changes"
-bundle_digest = Digest::SHA2.file(lock_file).hexdigest
+file = File.open(lock_file, "rb")
+contents = file.read
+bundle_digest = Digest::SHA2.file.hexdigest contents
 old_digest    = File.exists?(old_digest) ? File.read(old_digest) : ""
 
 if bundle_digest == old_digest

@@ -21,6 +21,7 @@ old_digest    = File.exists?(old_digest) ? File.read(old_digest) : ""
 
 if bundle_digest == old_digest
   puts "=> There were no changes, doing nothing"
+
 else
   if old_digest == ""
     puts "=> There was no existing digest, uploading a new version of the archive"

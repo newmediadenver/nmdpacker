@@ -102,10 +102,10 @@ end
 
 state = ARGV[0].nil? ? 'before' : 'after'
 cache = TravisS3Cache.new({
-  'aws_s3_key' => 'AKIAIOUXGDMFHNZ6GHUQ',
-  'aws_s3_secret' => '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',
-  'aws_s3_bucket' => 'nmd-cache',
-  'aws_s3_region' => 'us-east-1',
+  'aws_s3_key' => '',
+  'aws_s3_secret' => '',
+  'aws_s3_bucket' => '',
+  'aws_s3_region' => '',
   'aws_s3_extras' => ['https://dl.bintray.com/mitchellh/packer/0.5.1_linux_amd64.zip'],
   'bundle_archive' => 'nmdpacker'
 })

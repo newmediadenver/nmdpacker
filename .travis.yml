@@ -10,7 +10,7 @@ script: bundle exec thor nmd:validate
 notifications:
   hipchat:
     rooms:
-      secure: RFtV7R9DA3AAujrRnRiEj/ZGWEqn3SFkEFKZZDQEuEEVDobJlkd8MdxSUkEWI/6BXgaAnM138qoq85JckY0QkTAxv2cAYx79OYQGYQReOqRdPEjSAl2gU27c0Umg9EG8lMHr51hYaP7SNs521kpFPujKRfY7irtlxGTvSrPBlC4=
+      secure: "RIZFLcHmlVNLPlgMgWFCbDp6U18iACvh52b2LySjIuQtNmZaq1nEK5x9+WojM32W+054zeW9SX58JFH1IaJIHulme0hlu6twG6X+nFtrfq1/j0U1RttGRaie+bjgf4XZ9kBd6q6jg/TxwJhYpSdabNRAsLWi9EpIwo/A5HcJpuE="
 env:
   global:
   - AWS_S3_REGION="us-east-1"

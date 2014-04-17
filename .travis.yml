@@ -9,9 +9,9 @@ script: bundle exec thor nmd:validate
 notifications:
   hipchat:
     rooms:
-      secure: "RIZFLcHmlVNLPlgMgWFCbDp6U18iACvh52b2LySjIuQtNmZaq1nEK5x9+WojM32W+054zeW9SX58JFH1IaJIHulme0hlu6twG6X+nFtrfq1/j0U1RttGRaie+bjgf4XZ9kBd6q6jg/TxwJhYpSdabNRAsLWi9EpIwo/A5HcJpuE="
+      secure: RIZFLcHmlVNLPlgMgWFCbDp6U18iACvh52b2LySjIuQtNmZaq1nEK5x9+WojM32W+054zeW9SX58JFH1IaJIHulme0hlu6twG6X+nFtrfq1/j0U1RttGRaie+bjgf4XZ9kBd6q6jg/TxwJhYpSdabNRAsLWi9EpIwo/A5HcJpuE=
 install: scripts/cached-bundle install --without integration --deployment
 env:
   global:
   - PACKER_FILENAME="0.5.1_linux_amd64.zip"
-  - secure: Kx+TKkluTArFj8Bcafh4oL2b05iO0r3qwf721pMOn6qrSa6fSgbmCq0eXH51zd7dWuI9ELZ48stQJDw00agoGFgx2fs7skKzGug2UiwSssP0XyZouf3cjcxMTmfG4E0t2MoFdH9RhThC05E5rf05c+nIqmjvEJdZDSgZqhtpHxA=
+  - secure: Ftzigrm0KuHD2Q7sEKcVAEcGAOz7OaBx44c/92rSqoxYP+DW81mK9JdU6yvPJEbAB3g6NY70CA//+mqb1mKuaVgOVc3/hTsrOj0T2MDt04yYDPfK6UnxMWJifq+iO8We5kgphasoWypiyY41jPUP3kwXNcZ6J6irgglAUgJLqsA=

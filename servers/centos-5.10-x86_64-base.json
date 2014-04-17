@@ -79,7 +79,6 @@
       "execute_command": "echo 'vagrant' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
       "scripts": [
         "scripts/centos/update.sh",
-        "scripts/centos/addpackages.sh",
         "scripts/common/vagrant.sh",
         "scripts/common/sshd.sh",
         "scripts/common/vmtools.sh",

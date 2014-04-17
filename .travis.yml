@@ -3,7 +3,6 @@ rvm:
 - 2.0.0
 before_install:
 - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc'
-- gem install bundler fog unf
 before_script: export PATH=$PATH:/home/travis/.bundle/packer
 script: bundle exec thor nmd:validate
 notifications:

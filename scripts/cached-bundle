@@ -10,7 +10,7 @@
 # - TRAVIS_REPO_SLUG
 # - TRAVIS_RUBY_VERSION
 # - AMAZON_S3_BUCKET
-# - script/s3-put
+# - scripts/s3-put
 # - bundle
 # - curl
 #
@@ -42,5 +42,5 @@ bundle "$@"
 if [ ! -f "$cache_name" ]; then
   echo "Caching \`${bundle_path}' to S3"
   tar czf "$cache_name" "$bundle_path"
-  script/s3-put "$cache_name" "${S3_BUCKET}:${TRAVIS_REPO_SLUG}/${cache_name}"
+  scripts/s3-put "$cache_name" "${S3_BUCKET}:${TRAVIS_REPO_SLUG}/${cache_name}"
 fi

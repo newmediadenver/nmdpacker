@@ -4,7 +4,7 @@ rvm:
 before_install:
 - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc'
 - scripts/travis/bundle_install.sh
-before_script: export PATH=$PATH:/home/travis/.bundle/packer
+before_script: export PATH=$PATH:/home/travis/vendor/bundle/packer
 script: bundle exec thor nmd:validate
 notifications:
   hipchat:

@@ -16,7 +16,7 @@
 #
 # Author: Mislav Marohnić
 
-set -e
+set -x
 
 compute_md5() {
   local output="$(openssl md5)"

@@ -27,7 +27,7 @@ download() {
   curl --tcp-nodelay -qsfL "$1" -o "$2"
 }
 
-bundle_path="vendor/bundle"
+bundle_path=$BUNDLE_PATH
 gemfile_hash="$(compute_md5 <"${BUNDLE_GEMFILE:-Gemfile}.lock")"
 cache_name="${TRAVIS_RUBY_VERSION}-${gemfile_hash}.tgz"
 fetch_url="http://${S3_BUCKET}.s3.amazonaws.com/${TRAVIS_REPO_SLUG}/${cache_name}"

@@ -4,7 +4,7 @@ rvm:
 before_install:
 - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc'
 - scripts/travis/bundle_install.sh
-before_script: export PATH=$PATH:/home/travis/vendor/bundle/packer
+before_script: export PATH=$PATH:$BUNDLE_PATH/packer
 script: bundle exec thor nmd:validate
 notifications:
   hipchat:
@@ -13,5 +13,5 @@ notifications:
 install: scripts/cached-bundle install --without integration --deployment
 env:
   global:
-  - PACKER_FILENAME="0.5.1_linux_amd64.zip"
+  - BUNDLE_PATH="/home/travis/vendor/bundle"
   - secure: Ftzigrm0KuHD2Q7sEKcVAEcGAOz7OaBx44c/92rSqoxYP+DW81mK9JdU6yvPJEbAB3g6NY70CA//+mqb1mKuaVgOVc3/hTsrOj0T2MDt04yYDPfK6UnxMWJifq+iO8We5kgphasoWypiyY41jPUP3kwXNcZ6J6irgglAUgJLqsA=

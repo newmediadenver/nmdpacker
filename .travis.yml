@@ -1,6 +1,6 @@
 bundler_args: "--without development --path=~/.bundle"
 rvm:
-- 2.1.1
+- 2.0.0
 before_install:
 - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc'
 - scripts/travis/bundle_install.sh

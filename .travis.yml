@@ -14,4 +14,4 @@ install: scripts/cached-bundle install --without integration --deployment
 env:
   global:
   - BUNDLE_PATH="/home/travis/vendor/bundle"
-  - secure: Kx+TKkluTArFj8Bcafh4oL2b05iO0r3qwf721pMOn6qrSa6fSgbmCq0eXH51zd7dWuI9ELZ48stQJDw00agoGFgx2fs7skKzGug2UiwSssP0XyZouf3cjcxMTmfG4E0t2MoFdH9RhThC05E5rf05c+nIqmjvEJdZDSgZqhtpHxA=
+  - secure: ZM1TpwYH6cud2/nI9uJiQMZJ8wQZtf5kll0VFJ17wjQPxisKEFFgVJVEDeYN4hBlsqjWg7rFP+7mGfmcAD92gJyjgvImcXSaoJfapsFhEm8IDLmPNRxhuoKZMkabWIfqoU0yg2nPlAawUeJWzcshuJq7Q0a9BdE2/NYkUsIN25w=

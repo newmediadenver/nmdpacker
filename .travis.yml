@@ -1,5 +1,4 @@
-bundler_args: "--without development --path=~/vendor/bundle"
-rvm:
+bundler_args: "--without development --path=/home/travis/build/newmediadenver/nmdpacker/vendor/bundle"
 - 2.0.0
 before_install:
 - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc'
@@ -13,5 +12,5 @@ notifications:
 install: scripts/cached-bundle install --without integration --deployment
 env:
   global:
-  - BUNDLE_PATH="/home/travis/vendor/bundle"
+  - BUNDLE_PATH="/home/travis/build/newmediadenver/nmdpacker/vendor/bundle"
   - secure: ZM1TpwYH6cud2/nI9uJiQMZJ8wQZtf5kll0VFJ17wjQPxisKEFFgVJVEDeYN4hBlsqjWg7rFP+7mGfmcAD92gJyjgvImcXSaoJfapsFhEm8IDLmPNRxhuoKZMkabWIfqoU0yg2nPlAawUeJWzcshuJq7Q0a9BdE2/NYkUsIN25w=

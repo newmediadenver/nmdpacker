@@ -67,7 +67,7 @@
   ],
   "post-processors": [
     {
-      "output": "builds/{{.Provider}}/opscode_centos-5.10_chef-{{user `chef_version`}}.box",
+      "output": "builds/{{.Provider}}/nmd-centos-5.10-x86_64-base.box",
       "type": "vagrant"
     }
   ],

@@ -18,6 +18,13 @@ def rake_tasks
   documentation
 end
 
+def gets3
+  %w{ AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_REGION }.each do |key|
+    fail "Set an environment variable for #{key}" if ENV[key].nil?
+  end
+  AWS::S3.new
+end
+
 desc 'Validate all the packer templates in servers directory.'
 task :validate do
   templates = Dir.glob('servers/*.json')
@@ -45,7 +52,41 @@ task :clean, :action do |t, args|
   end
 end
 
-desc '"upload[vmware|virtualbox]" Upload boxes to the designated s3 bucket.'
+desc '"upload[vmware]" Upload boxes to the designated s3 bucket. Defaults to
+virtualbox if vmware is not specified.'
+
+task :upload, :vmware do |t, args|
+  s3 = gets3
+  bucket_name = 'nmd-virtualbox'
+  bucket_name = 'nmd-vmware' if args[:vmware]
+  begin
+    bucket = s3.buckets.create(bucket_name)
+  rescue Exception => e
+    bucket = s3.buckets[bucket_name]
+  end
+  bucket.acl = :public_read
+  Dir.chdir '.' do
+    boxes = Dir.glob('./builds/virtualbox/*.box')
+    boxes = Dir.glob('./builds/vmware/*.box') if args[:vmware]
+    puts 'Nothing to upload.' if boxes.empty?
+    boxes.each do |box|
+      # @TODO: What if there are no tags
+      tag = `git describe --abbrev=0 --tags`.gsub("\n","")
+      tag_hash = `git show-ref --tags -d | grep #{tag}\^\{\} | awk '{print $1}'`.gsub("\n","")
+      latest_hash = `git rev-parse HEAD`.gsub("\n","")
+      # If the latest hash doesn't match the tag hash then call it latest.
+      tag = 'latest' if latest_hash != tag_hash
+      # Add the tag to the target name.
+      target_name = box.split('/').last
+      target_name = target_name.gsub(/(.*).box/, "\\1-#{tag}.box")
+      puts "Setting tag to #{tag}."
+      puts "Action #{t}: Uploading #{box} to the #{bucket_name} #{target_name} (this could take some time) ..."
+      object = bucket.objects.create(target_name, Pathname.new(box))
+      object.acl = :public_read
+      puts "object.public_url"
+    end
+  end
+end
 
 desc '"build[os|ver|bits|var|only|box|upload]" Build a base vagrant box
  from chef cookbooks. If no options are specified it will try and build all
@@ -85,7 +126,7 @@ task :build, :os, :ver, :bits, :var, :only, :box, :upload do |t, args|
         system "vagrant box add #{box_name} #{template}"
       end
     end
-    if args[:upload] || upload
+    if args[:upload] || Rake::Task["upload"].invoke
     end
   end
 end

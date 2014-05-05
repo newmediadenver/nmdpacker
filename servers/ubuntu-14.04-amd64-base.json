@@ -109,7 +109,7 @@
   ],
   "post-processors": [
     {
-      "output": "builds/{{.Provider}}/opscode_ubuntu-14.04_base.box",
+      "output": "builds/{{.Provider}}/nmd-ubunutu-14.04-x86_64-base.box",
       "type": "vagrant"
     }
   ],

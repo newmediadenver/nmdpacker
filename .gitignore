@@ -1,7 +1,8 @@
 packer_cache
-Berksfile.lock
 .DS_Store
-Gemfile.lock
+*.lock
 .berkshelf
 .vagrant
 .kitchen
+.bundle
+/vendor

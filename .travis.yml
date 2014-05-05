@@ -10,7 +10,7 @@ notifications:
   hipchat:
     rooms:
       secure: RIZFLcHmlVNLPlgMgWFCbDp6U18iACvh52b2LySjIuQtNmZaq1nEK5x9+WojM32W+054zeW9SX58JFH1IaJIHulme0hlu6twG6X+nFtrfq1/j0U1RttGRaie+bjgf4XZ9kBd6q6jg/TxwJhYpSdabNRAsLWi9EpIwo/A5HcJpuE=
-install: scripts/cached-bundle install --without integration --deployment
+install: scripts/cached-bundle install --without integration --deployment --path vendor/bundle
 env:
   global:
   - BUNDLE_PATH="/home/travis/build/newmediadenver/nmdpacker/vendor/bundle"

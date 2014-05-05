@@ -1,4 +1,4 @@
-bundler_args: "--without development --path=vendor/bundle"
+bundler_args: "--without development --path=~/vendor/bundle"
 rvm:
 - 2.0.0
 before_install:

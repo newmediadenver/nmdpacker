@@ -131,7 +131,7 @@ All required variables can be set to * to build all defined servers.
  "nmdpacker_upload: Uploads the box to s3." - optional'
 
 task :build do
- check_build_vars
+  check_build_vars
 
   nmdpacker_os = ENV['NMDPACKER_OS']
   nmdpacker_ver = ENV['NMDPACKER_VER']
@@ -143,38 +143,37 @@ task :build do
 
   Dir.chdir '.' do
     FileUtils.rm './Berkshelf.lock', force: true
-     `bundle exec berks install --path vendor/cookbooks `
-     FileUtils.rm_rf(Dir.glob('./packer-*'))
-     if nmdpacker_bits
-       processor = nmdpacker_bits == '64' ? "{amd64,x86_64}" : "i386"
-     else
-       processor = '*'
-     end
+    `bundle exec berks install --path vendor/cookbooks `
+    FileUtils.rm_rf(Dir.glob('./packer-*'))
+    if nmdpacker_bits
+      processor = nmdpacker_bits == '64' ? "{amd64,x86_64}" : "i386"
+    else
+      processor = '*'
+    end
 
     templates = Dir.glob("./servers/#{nmdpacker_os}-#{nmdpacker_ver}-#{processor}-#{nmdpacker_var}.json")
 
-     if nmdpacker_only
-       templates.each do |template|
-         exec "packer build -only=#{nmdpacker_only} #{template}"
-       end
-     else
-       #puts "#{templates}"
-       templates.each do |template|
-         puts "#{templates}"
-         exec "packer build #{template}"
-       end
-     end
+    if nmdpacker_only
+      templates.each do |template|
+        exec "packer build -only=#{nmdpacker_only} #{template}"
+      end
+    else
+      templates.each do |template|
+        puts "#{templates}"
+        exec "packer build #{template}"
+      end
+    end
 
-     if nmdpacker_box
-       Dir.glob('./builds/virtualbox/nmd*').each do |template|
-         box_name = template.match(/(nmd.*).box/).captures[0]
-         exec "vagrant box remove #{box_name}"
-         exec "vagrant box add #{box_name} #{template}"
-       end
-     end
+    if nmdpacker_box
+      Dir.glob('./builds/virtualbox/nmd*').each do |template|
+        box_name = template.match(/(nmd.*).box/).captures[0]
+        exec "vagrant box remove #{box_name}"
+        exec "vagrant box add #{box_name} #{template}"
+      end
+    end
 
-     if nmdpacker_upload.nil? || Rake::Task['upload'].invoke
-     end
+    if nmdpacker_upload.nil? || Rake::Task['upload'].invoke
+    end
   end
 end
 task :default, [:action] => :clean

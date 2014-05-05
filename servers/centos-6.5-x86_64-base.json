@@ -91,7 +91,7 @@
     },
     {
       "type": "chef-solo",
-      "cookbook_paths": [".berkshelf/cookbooks"],
+      "cookbook_paths": ["vendor/cookbooks"],
       "run_list": [],
       "json": {
 

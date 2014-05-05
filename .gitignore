@@ -1,13 +1,8 @@
 packer_cache
 .DS_Store
-<<<<<<< HEAD
-Gemfile.lock
-vendor
-=======
 *.lock
 .berkshelf
->>>>>>> upstream/master
 .vagrant
 .kitchen
 .bundle
-/vendor
+vendor

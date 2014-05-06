@@ -133,7 +133,7 @@ License and Author
 
 Copyright:: 2014, NewMedia Denver
 
-Portions of nmdpacker were adapted from [opscodes' bento project](https://github.com/opscode/bento).
+Portions of nmdpacker were adapted from [opscode's bento project](https://github.com/opscode/bento).
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

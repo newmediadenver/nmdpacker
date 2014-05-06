@@ -58,7 +58,8 @@ task :clean, :action do |t, args|
 end
 
 desc '"upload[vmware]" Upload boxes to the designated s3 bucket. Defaults to
-virtualbox if vmware is not specified.'
+virtualbox if vmware is not specified. Requires AWS_SECRET_ACCESS_KEY,
+AWS_ACCESS_KEY_ID, & AWS_REGION environment variables be set.'
 
 task :upload, :vmware do |t, args|
   s3 = gets3
@@ -94,7 +95,8 @@ task :upload, :vmware do |t, args|
 end
 
 desc '"delete[BUCKET_NAME, OBJECT_NAME]" s3: Delete an object or a bucket (and
-      its contents).'
+      its contents). Requires AWS_SECRET_ACCESS_KEY,AWS_ACCESS_KEY_ID, &
+AWS_REGION environment variables be set.'
 task :delete, :bucket_name, :object_name do |t, args|
   s3 = gets3
   bucket_name = args[:bucket_name]
@@ -122,13 +124,13 @@ desc 'Build a base vagrant box from chef cookbooks - Requires environment variab
 Settings are read from the following shell environment variables.
 All required variables can be set to * to build all defined servers.
 
- "nmdpacker_os: ex: OS=centos" - Required
- "nmdpacker_ver: VER=5.10" - Required
- "nmdpacker_bits: ex: BITS=64" - Required
- "nmdpacker_var: default: base ex: base,lamp, etc" - Required
- "nmdpacker_only: Typically virtualbox-iso or vmware-iso" - optional
- "nmdpacker_box: Adds the new box to your local vagrant" - optional
- "nmdpacker_upload: Uploads the box to s3." - optional'
+ "NMDPACKER_OS: ex: OS=centos" - Required
+ "NMDPACKER_VER: VER=5.10" - Required
+ "NMDPACKER_BITS: ex: BITS=64" - Required
+ "NMDPACKER_VAR: default: base ex: base,lamp, etc" - Required
+ "NMDPACKER_ONLY: Typically virtualbox-iso or vmware-iso" - optional
+ "NMDPACKER_BOX: Adds the new box to your local vagrant" - optional
+ "NMDPACKER_UPLOAD: Uploads the box to s3." - optional'
 
 task :build do
   check_build_vars
@@ -166,6 +168,11 @@ task :build do
 
     if nmdpacker_box
       Dir.glob('./builds/virtualbox/nmd*').each do |template|
+        box_name = template.match(/(nmd.*).box/).captures[0]
+        exec "vagrant box remove #{box_name}"
+        exec "vagrant box add #{box_name} #{template}"
+      end
+      Dir.glob('./builds/vmware/nmd*').each do |template|
         box_name = template.match(/(nmd.*).box/).captures[0]
         exec "vagrant box remove #{box_name}"
         exec "vagrant box add #{box_name} #{template}"

@@ -59,12 +59,16 @@ end
 
 desc '"upload[vmware]" Upload boxes to the designated s3 bucket. Defaults to
 virtualbox if vmware is not specified. Requires AWS_SECRET_ACCESS_KEY,
-AWS_ACCESS_KEY_ID, & AWS_REGION environment variables be set.'
+AWS_ACCESS_KEY_ID, AWS_REGION, & AWS_BUCKET_NAME. environment variables be set.'
 
 task :upload, :vmware do |t, args|
   s3 = gets3
-  bucket_name = 'nmd-virtualbox'
-  bucket_name = 'nmd-vmware' if args[:vmware]
+  if ENV['AWS_BUCKET_NAME']
+    bucket_name = ENV['AWS_BUCKET_NAME']
+  else
+    bucket_name = 'nmd-virtualbox'
+    bucket_name = 'nmd-vmware' if args[:vmware]
+  end
   begin
     bucket = s3.buckets.create(bucket_name)
   rescue Exception => e
@@ -127,7 +131,7 @@ All required variables can be set to * to build all defined servers.
  "NMDPACKER_OS: ex: OS=centos" - Required
  "NMDPACKER_VER: VER=5.10" - Required
  "NMDPACKER_BITS: ex: BITS=64" - Required
- "NMDPACKER_VAR: default: base ex: base,lamp, etc" - Required
+ "NMDPACKER_VAR: default: base ex: base,lamp, etc" - optional
  "NMDPACKER_ONLY: Typically virtualbox-iso or vmware-iso" - optional
  "NMDPACKER_BOX: Adds the new box to your local vagrant" - optional
  "NMDPACKER_UPLOAD: Uploads the box to s3." - optional'

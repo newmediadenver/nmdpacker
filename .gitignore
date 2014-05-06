@@ -5,4 +5,4 @@ packer_cache
 .vagrant
 .kitchen
 .bundle
-/vendor
+vendor

@@ -67,7 +67,7 @@
   ],
   "post-processors": [
     {
-      "output": "builds/{{.Provider}}/opscode_centos-6.5_chef-{{user `chef_version`}}.box",
+      "output": "builds/{{.Provider}}/nmd-centos-6.5-x86_64-base.box",
       "type": "vagrant"
     }
   ],
@@ -91,7 +91,7 @@
     },
     {
       "type": "chef-solo",
-      "cookbook_paths": [".berkshelf/cookbooks"],
+      "cookbook_paths": ["vendor/cookbooks"],
       "run_list": [],
       "json": {
 

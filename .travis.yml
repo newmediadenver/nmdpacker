@@ -5,7 +5,7 @@ before_install:
 - 'echo ''gem: --no-ri --no-rdoc'' > ~/.gemrc'
 - scripts/travis/bundle_install.sh
 before_script: export PATH=$PATH:$BUNDLE_PATH/packer
-script: bundle exec thor nmd:validate
+script: bundle exec rake validate
 notifications:
   hipchat:
     rooms:

@@ -33,16 +33,16 @@ Platforms are defined in JSON formatted files located in the [servers/](servers/
 1. [Rake](http://rake.rubyforge.org/) is the primary tool used execute commands and tasks within nmdpacker.  To see a list of available tasks execute bundle exec rake -D.
 
    ```bash
-   $  bundle exec rake -D                                                                                  
+   $  bundle exec rake -D
     rake build
         Build a base vagrant box from chef cookbooks - Requires environment variables be set -
         Settings are read from the following shell environment variables.
         All required variables can be set to * to build all defined servers.
-        
+
          "NMDPACKER_OS: ex: OS=centos" - Required
          "NMDPACKER_VER: VER=5.10" - Required
          "NMDPACKER_BITS: ex: BITS=64" - Required
-         "NMDPACKER_VAR: default: base ex: base,lamp, etc" - Required
+         "NMDPACKER_VAR: default: base ex: base,lamp, etc" - optional
          "NMDPACKER_ONLY: Typically virtualbox-iso or vmware-iso" - optional
          "NMDPACKER_BOX: Adds the new box to your local vagrant" - optional
          "NMDPACKER_UPLOAD: Uploads the box to s3." - optional

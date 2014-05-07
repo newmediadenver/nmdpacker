@@ -5,4 +5,5 @@ packer_cache
 .vagrant
 .kitchen
 .bundle
+.travis.yml
 vendor

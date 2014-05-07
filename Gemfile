@@ -12,3 +12,8 @@ gem 'thor', '~> 0.18.0'
 gem 'fileutils'
 gem 'bundle_cache', '~> 0.2.1'
 gem 'unf'
+
+group :development do
+  gem 'travis'
+  gem 'websocket-native'
+end

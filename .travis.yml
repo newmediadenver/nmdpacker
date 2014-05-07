@@ -14,4 +14,4 @@ install: scripts/cached-bundle install --without integration --deployment --path
 env:
   global:
   - BUNDLE_PATH="/home/travis/build/newmediadenver/nmdpacker/vendor/bundle"
-  - secure: ZM1TpwYH6cud2/nI9uJiQMZJ8wQZtf5kll0VFJ17wjQPxisKEFFgVJVEDeYN4hBlsqjWg7rFP+7mGfmcAD92gJyjgvImcXSaoJfapsFhEm8IDLmPNRxhuoKZMkabWIfqoU0yg2nPlAawUeJWzcshuJq7Q0a9BdE2/NYkUsIN25w=
+  - secure: ePuE+Ng7oUTYTL13iFpz3s6uairF7UNJP8yf4/HhlPn4XKwR0tTtFn3CbRZ0MN4iQTfWZrwLlikESNpIVbBrU3yoHIw4bx3uUe9CnT2FTVisph7gFnHiqaIUbHpn49XVM2hl13Q3fkWuVs+Il9Tj1uNBMKzhnVApl3w6INaUagc=

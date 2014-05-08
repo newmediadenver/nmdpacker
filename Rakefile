@@ -21,7 +21,7 @@ def gets3
 end
 
 def check_build_vars
-  %w{ NMDPACKER_OS NMDPACKER_VER NMDPACKER_BITS NMDPACKER_VAR }.each do |key|
+  %w{ NMDPACKER_OS NMDPACKER_VER NMDPACKER_BITS }.each do |key|
     fail "Set an environment variable for #{key} run bundle exec rake -D for
      extended detail" if ENV[key].nil?
   end
@@ -146,6 +146,12 @@ task :build do
   nmdpacker_only = ENV['NMDPACKER_ONLY']
   nmdpacker_box = ENV['NMDPACKER_BOX']
   nmdpacker_upload = ENV['NMDPACKER_UPLOAD']
+
+  if ENV['NMDPACKER_VAR']
+    nmdpacker_var = ENV['NMDPACKER_VAR']
+  else
+    nmdpacker_var = 'base'
+  end
 
   Dir.chdir '.' do
     FileUtils.rm './Berkshelf.lock', force: true

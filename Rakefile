@@ -93,7 +93,7 @@ task :upload, :vmware do |t, args|
       puts "Action #{t}: Uploading #{box} to the #{bucket_name} #{target_name} (this could take some time) ..."
       object = bucket.objects.create(target_name, Pathname.new(box))
       object.acl = :public_read
-      puts "object.public_url"
+      puts "Uploaded to #{object.public_url}"
     end
   end
 end
